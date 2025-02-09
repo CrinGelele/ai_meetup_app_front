@@ -1,22 +1,21 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../Routes";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
+import './homePage.css'
 
 export const HomePage: FC = () => {
   return (
     <Container>
-      <Row>
-        <Col md={6}>
-          <h1>AIMA</h1>
-          <p>
+        <div className="t-container">
+          <h1 className="primary-text">AIMA</h1>
+          <p className="secondary-text">
             Добро пожаловать в AIMA!
           </p>
           <Link to={ROUTES.SPEAKERS}>
-            <Button variant="primary">Наши спикеры</Button>
+            <Button className="submit-btn text-decoration-none">Наши спикеры</Button>
           </Link>
-        </Col>
-      </Row>
+        </div>
     </Container>
   );
 };

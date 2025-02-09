@@ -1,0 +1,52 @@
+.t-container {
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    width: 40%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+
+    .primary-text {
+        margin-top: 1%;
+        margin-bottom: 1%;
+        font-family: "Inter", sans-serif;
+        font-weight: 500;
+        font-size: 50px;
+        font-style: normal;
+    }
+
+    .secondary-text {
+        margin: 0%;
+        margin-bottom: 1%;
+        font-family: "Inter", sans-serif;
+        font-size: 25px;
+        font-weight: 150;
+        font-style:normal;
+    }
+
+    .info-text {
+        margin: 0%;
+        margin-top: 1%;
+        font-size: 13px;
+        font-family: "Inter", sans-serif;
+        font-weight: 400;
+        font-style:normal;
+    }
+
+    .submit-btn {
+        display: flex;
+        margin-top: 3%;
+        height: 10%;
+        width: 100%;
+        background-color: black;
+        color: white;
+        font-size: 20px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        border: 1px solid black;
+    }
+}
