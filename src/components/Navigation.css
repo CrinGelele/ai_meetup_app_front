@@ -1,0 +1,35 @@
+.navbar {
+    background-color: white;
+    height: 72px;
+    box-shadow: -6px -6px 20px rgba(186, 202, 247, .1), 24px 24px 30px rgba(209, 220, 250, .12), 8px 8px 8px rgba(163, 184, 245, .1);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    text-decoration: none;
+    font-family: "Inter", sans-serif;
+
+    img {
+        width: 2.5rem;
+        border-radius: 5px;
+    }
+
+    span {
+        display: inline;
+        --tw-text-opacity: 1;
+        color: rgb(45 143 254 / var(--tw-text-opacity));
+        font-weight: 500;
+    }
+}
+
+.nav-container {
+    .nav-link {
+        text-decoration: none;
+        font-family: "Inter", sans-serif;
+        --tw-text-opacity: 1;
+        color: rgb(45 143 254 / var(--tw-text-opacity));
+        font-weight: 300;
+    }
+}

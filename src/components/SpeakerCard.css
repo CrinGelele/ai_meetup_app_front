@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 15rem !important;
+    align-items: center;
+    background-color: white;
+    border: none !important;
+    border-radius: 30px !important;
+    box-shadow: -6px -6px 20px rgba(186, 202, 247, .1), 24px 24px 30px rgba(209, 220, 250, .12), 8px 8px 8px rgba(163, 184, 245, .1);
+
+    img {
+        width: 100%; /* Ширина изображений */
+        height: 70%; /* Высота изображении */
+        object-fit: cover;
+    }
+
+    .text-container {
+        display: flex;
+        flex-direction: column;
+        height: 30%;
+        width: 100%;
+        text-align: center;
+        justify-content: space-between;
+        vertical-align: middle;
+
+        .primary-text {
+            margin-top: 1%;
+            margin-bottom: 0%;
+            padding-left: 10px;
+            font-family: "Arial", sans-serif;
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        .secondary-text {
+            margin: 0%;
+            font-family: "Inter", sans-serif;
+            padding-right: 10px;
+            font-weight: 150;
+            font-style:normal;
+        }
+    }
+}    
