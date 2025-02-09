@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+  base: "/ai_meetup_app_front",
   server: {
     proxy: {
       "/api": {

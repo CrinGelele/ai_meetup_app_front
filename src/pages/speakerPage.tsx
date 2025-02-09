@@ -4,7 +4,7 @@ import { BreadCrumbs } from "../components/BreadCrumbs";
 import { ROUTES, ROUTE_LABELS } from "../../Routes";
 import { useParams } from "react-router-dom";
 import { Speaker, getSpeakerById } from "../modules/aimaApi";
-import { Col, Row, Spinner, Image } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import { SPEAKERS_MOCK } from "../modules/mock";
 import defaultImage from "../assets/defaultImage.png";
 
@@ -16,7 +16,7 @@ export const AlbumPage: FC = () => {
   useEffect(() => {
     if (!id) return;
     getSpeakerById(id)
-      .then((response) => setPageDdata(response))
+      .then((response) => setPageDdata(response.speakers[0]))
       .catch(
         () =>
           setPageDdata(

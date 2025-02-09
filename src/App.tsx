@@ -8,7 +8,7 @@ import './App.css';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/ai_meetup_app_front">
     <div className="space">
         <Navigation/>
         <div className="content-container">
