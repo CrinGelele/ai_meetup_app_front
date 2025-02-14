@@ -1,0 +1,32 @@
+{
+    "name": "AIMA",
+    "short_name": "AIMA",
+    "start_url": "/ai_meetup_app_front/",
+    "display": "standalone",
+    "background_color": "#fdfdfd",
+    "theme_color": "#db4938",
+    "orientation": "portrait-primary",
+    "icons": [
+      {
+        "src": "logo.png",
+        "type": "image/png", "sizes": "1024x1024"
+      },
+      {
+        "src": "logo.png",
+        "type": "image/png", "sizes": "1024x1024"
+      }
+    ],
+    "screenshots": [
+    {
+      "src": "screenshot-wide.png",
+      "sizes": "1898x928",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "screenshot-newide.png",
+      "sizes": "499x811",
+      "type": "image/png"
+    }
+  ]
+  }

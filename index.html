@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/ai_meetup_app_front/vite.svg" />
+    <link rel="manifest" href="manifest.json">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + React + TS</title>
     <script type="module" crossorigin src="/ai_meetup_app_front/assets/index-B6mOg1vZ.js"></script>
@@ -10,5 +11,15 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function() {
+        navigator.serviceWorker
+          .register("ai_meetup_app_front/serviceWorker.js")
+          .then(res => console.log("service worker registered"))
+          .catch(err => console.log("service worker not registered", err))
+      })
+    }
+    </script>
   </body>
 </html>
