@@ -16,7 +16,7 @@ export const AlbumPage: FC = () => {
   useEffect(() => {
     if (!id) return;
     getSpeakerById(id)
-      .then((response) => setPageDdata(response.speakers[0]))
+      .then((response) => setPageDdata(response))
       .catch(
         () =>
           setPageDdata(
@@ -27,33 +27,43 @@ export const AlbumPage: FC = () => {
       );
   }, [id]);
 
+  
+
   return (
-    <div className="justify-content-center align-items-center">
-      <BreadCrumbs 
-        crumbs={[
-          { label: ROUTE_LABELS.SPEAKERS, path: ROUTES.SPEAKERS },
-          { label: pageData ? `${pageData.first_name} ${pageData.last_name}` : "Спикер" },
-        ]}
-      />
-      {pageData ? ( // проверка на наличие данных, иначе загрузка
-        <div className="container">
-          <div className="page-container">
-          <div className="text-container">
-            <p className="primary-text">{pageData.first_name}</p>
-            <p className="primary-text">{pageData.last_name}</p>
-            <p className="secondary-text">{pageData.workplace}</p>
-            <p className="info-text">{pageData.description}</p>
-                <input type="text" hidden name="speaker_id" value={pageData.id}/>
-                <button type="submit" className="submit_btn">Пригласить</button>
-          </div>
-          <img src={pageData.img_url || defaultImage}/>
-          </div>
+    <div className="d-flex flex-column justify-content-center align-items-center">
+  <BreadCrumbs
+    crumbs={[
+      { label: ROUTE_LABELS.SPEAKERS, path: ROUTES.SPEAKERS },
+      { label: pageData ? `${pageData.first_name} ${pageData.last_name}` : "Спикер" },
+    ]}
+  />
+  {pageData ? ( // проверка на наличие данных, иначе загрузка
+    <div className="container">
+      <div className="row page-container">
+        {/* Текст */}
+        <div className="col-12 col-md-6 order-2 order-md-1 text-container">
+          <p className="primary-text">{pageData.first_name}</p>
+          <p className="primary-text">{pageData.last_name}</p>
+          <p className="secondary-text">{pageData.workplace}</p>
+          <p className="info-text">{pageData.description}</p>
+          <input type="text" hidden readOnly name="speaker_id" value={pageData.id} />
+          <button type="submit" className="submit_btn">Пригласить</button>
         </div>
-      ) : (
-        <div className="album_page_loader_block">{/* загрузка */}
-          <Spinner animation="border" />
+        {/* Картинка */}
+        <div className="col-12 col-md-6 order-1 order-md-2 d-flex justify-content-center align-items-center">
+          <img
+            src={pageData.img_url || defaultImage}
+            className="img-fluid speaker-image m-0"
+            alt="Speaker"
+          />
         </div>
-      )}
+      </div>
     </div>
+  ) : (
+    <div className="album_page_loader_block">
+      <Spinner animation="border" />
+    </div>
+  )}
+</div>
   );
 };

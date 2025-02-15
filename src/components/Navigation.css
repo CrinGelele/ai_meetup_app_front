@@ -4,12 +4,22 @@
     box-shadow: -6px -6px 20px rgba(186, 202, 247, .1), 24px 24px 30px rgba(209, 220, 250, .12), 8px 8px 8px rgba(163, 184, 245, .1);
 }
 
+.fit-content {
+    width: fit-content;
+}
+
+.flex-dir-row {
+    flex-direction: row;
+}
+
 .logo-container {
     display: flex;
     align-items: center;
     gap: .75rem;
     text-decoration: none;
     font-family: "Inter", sans-serif;
+    width: 100px;
+    margin-left: 3%;
 
     img {
         width: 2.5rem;
@@ -23,13 +33,28 @@
         font-weight: 500;
     }
 }
-
-.nav-container {
+.navbar-nav {
+    width: fit-content;
+    margin-right: 3%;
     .nav-link {
+        text-align: right;
+        background-color: white;
         text-decoration: none;
         font-family: "Inter", sans-serif;
         --tw-text-opacity: 1;
         color: rgb(45 143 254 / var(--tw-text-opacity));
         font-weight: 300;
     }
+    }
+
+.custom-navbar-toggler {
+    color: rgb(45 143 254) !important /* Цвет иконки */
+}
+    
+.navbar-toggler {
+    border-color: rgb(45 143 254) !important /* Цвет рамки кнопки (опционально) */
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgb(45, 143, 254)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important
 }

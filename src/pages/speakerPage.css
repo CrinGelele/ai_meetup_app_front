@@ -4,74 +4,123 @@
     align-items: center;
     height: 100vh;
   }
-
+  
   .page-container {
-    display: flex;
-    flex-direction: row;
     margin-top: 2%;
     margin-right: 2%;
-
-    img {
-        margin-top: 5%;
-        margin-left: 5%;
-        margin-right: 5%;
-        max-width: 40%;
-        max-height: 60%;
-        box-shadow: -6px -6px 20px rgba(186, 202, 247, .1), 24px 24px 30px rgba(209, 220, 250, .12), 8px 8px 8px rgba(163, 184, 245, .1);
-        border-radius: 20px;
-        overflow: hidden;
+  }
+  
+  .speaker-image {
+    aspect-ratio: 1/1; /* Делаем картинку квадратной */
+    object-fit: cover; /* Обрезаем картинку, чтобы она заполнила квадрат */
+    width: 400px; /* Занимает всю доступную ширину */
+    max-width: 400px; /* Ограничиваем максимальную ширину */
+    box-shadow: -6px -6px 20px rgba(186, 202, 247, 0.1),
+      24px 24px 30px rgba(209, 220, 250, 0.12), 8px 8px 8px rgba(163, 184, 245, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-left: auto; /* Смещаем картинку вправо */
+  }
+  
+  .text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: normal;
+    margin-top: 5%;
+  }
+  
+  .primary-text {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 3rem; /* Используем rem для адаптивности */
+  }
+  
+  .secondary-text {
+    margin: 0%;
+    margin-bottom: 1%;
+    font-family: "Inter", sans-serif;
+    font-size: 1.5rem; /* Используем rem для адаптивности */
+    font-weight: 150;
+    font-style: normal;
+  }
+  
+  .info-text {
+    margin: 0%;
+    margin-top: 1%;
+    font-size: 1rem; /* Используем rem для адаптивности */
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .submit_btn {
+    display: flex;
+    margin-top: 3%;
+    height: 50px; /* Фиксированная высота для кнопки */
+    width: 100%;
+    background-color: black;
+    color: white;
+    font-size: 1.25rem; /* Используем rem для адаптивности */
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid black;
+  }
+  
+  /* Медиа-запросы для адаптивности */
+  @media (max-width: 768px) {
+    .primary-text {
+      font-size: 2rem; /* Уменьшаем размер шрифта для мобильных устройств */
     }
-
+  
+    .secondary-text {
+      font-size: 1.25rem; /* Уменьшаем размер шрифта для мобильных устройств */
+    }
+  
+    .info-text {
+      font-size: 0.875rem; /* Уменьшаем размер шрифта для мобильных устройств */
+    }
+  
+    .submit_btn {
+      height: 40px; /* Уменьшаем высоту кнопки для мобильных устройств */
+      font-size: 1rem; /* Уменьшаем размер шрифта для мобильных устройств */
+    }
+  
     .text-container {
-        display: flex;
-        flex-direction: column;
-        height: 80%;
-        width: 40%;
-        justify-content: left;
-        align-items: normal;
-        margin-top: 5%;
-        margin-left: 5%;
-        margin-right: 5%;
-
-        .primary-text {
-            margin-top: 1%;
-            margin-bottom: 1%;
-            font-family: "Inter", sans-serif;
-            font-weight: 500;
-            font-size: 50px;
-            font-style: normal;
-        }
-
-        .secondary-text {
-            margin: 0%;
-            margin-bottom: 1%;
-            font-family: "Inter", sans-serif;
-            font-size: 25px;
-            font-weight: 150;
-            font-style:normal;
-        }
-
-        .info-text {
-            margin: 0%;
-            margin-top: 1%;
-            font-size: 13px;
-            font-family: "Inter", sans-serif;
-            font-weight: 400;
-            font-style:normal;
-        }
-
-        .submit_btn {
-            display: flex;
-            margin-top: 3%;
-            height: 10%;
-            width: 100%;
-            background-color: black;
-            color: white;
-            font-size: 20px;
-            justify-content: center;
-            align-items: center;
-            border-radius: 10px;
-            border: 1px solid black;
-        }
+      margin-left: 2%;
+      margin-right: 2%;
+    }
+  
+    .speaker-image {
+      margin-top: 2%;
+      width: 250px;
+      max-width: 250px; /* Уменьшаем максимальную ширину для мобильных устройств */
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .primary-text {
+      font-size: 1.5rem; /* Ещё меньше для очень маленьких экранов */
+    }
+  
+    .secondary-text {
+      font-size: 1rem; /* Ещё меньше для очень маленьких экранов */
+    }
+  
+    .info-text {
+      font-size: 0.75rem; /* Ещё меньше для очень маленьких экранов */
+    }
+  
+    .submit_btn {
+      height: 35px; /* Ещё меньше для очень маленьких экранов */
+      font-size: 0.875rem; /* Ещё меньше для очень маленьких экранов */
+    }
+  
+    .speaker-image {
+      width: 200px;
+      max-width: 200px; /* Ещё меньше для очень маленьких экранов */
     }
   }

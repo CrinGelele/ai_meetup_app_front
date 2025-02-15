@@ -20,7 +20,7 @@ export interface Speaker {
   
   export const getSpeakerById = async (
     id: number | string
-  ): Promise<SpeakersResult> => {
+  ): Promise<Speaker> => {
     return fetch(`/api/api/speakers/${id}/`).then(
       (response) => response.json()
     );
