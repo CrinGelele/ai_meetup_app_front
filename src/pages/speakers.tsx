@@ -8,9 +8,12 @@ import { ROUTES, ROUTE_LABELS } from "../../Routes";
 import { SpeakerCard } from "../components/SpeakerCard";
 import { useNavigate } from "react-router-dom";
 import { SPEAKERS_MOCK } from "../modules/mock";
+import { useSelector, useDispatch } from "react-redux";
+import { setSearchValue, selectSearchValue } from '../slices/speakersSlice'
 
 const ITunesPage: FC = () => {
-  const [searchValue, setSearchValue] = useState("");
+  const dispatch = useDispatch();
+  const searchValue = useSelector(selectSearchValue); // Получаем значение поиска из Redux
   const [loading, setLoading] = useState(false);
   const [speakers, setSpeakers] = useState<Speaker[]>([]);
 
@@ -64,7 +67,7 @@ const ITunesPage: FC = () => {
       
       <InputField
         value={searchValue}
-        setValue={(value) => setSearchValue(value)}
+        onChange={(e) => dispatch(setSearchValue(e.target.value))}
         loading={loading}
         onSubmit={handleSearch}
       />
