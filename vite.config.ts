@@ -13,6 +13,12 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, "/"),
       },
+      "/minio": {
+        target: "http://192.168.1.80:9000",
+        changeOrigin: true,
+        secure: false, // Позволяет работать без HTTPS
+        rewrite: (path) => path.replace(/^\/minio/, ""),
+      },
     },
     https:{
       key: fs.readFileSync(path.resolve(__dirname, 'cert.key')),
