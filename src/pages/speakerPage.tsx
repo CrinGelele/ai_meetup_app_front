@@ -7,11 +7,25 @@ import { Speaker, getSpeakerById } from "../modules/aimaApi";
 import { Spinner } from "react-bootstrap";
 import { SPEAKERS_MOCK } from "../modules/mock";
 import defaultImage from "../assets/defaultImage.png";
+import { useSelector } from 'react-redux';
+import { inviteSpeaker } from '../slices/meetupsSlice'
+import { RootState, useAppDispatch} from '../store'
+import { useNavigate } from "react-router-dom";
 
 export const AlbumPage: FC = () => {
   const [pageData, setPageDdata] = useState<Speaker>();
 
   const { id } = useParams(); // ид страницы, пример: "/albums/12"
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated);
+
+  const handleAdd = async () => {
+    if (id) {
+        await dispatch(inviteSpeaker(id));
+        navigate(`${ROUTES.SPEAKERS}`);
+    }
+}
 
   useEffect(() => {
     if (!id) return;
@@ -47,7 +61,9 @@ export const AlbumPage: FC = () => {
           <p className="secondary-text">{pageData.workplace}</p>
           <p className="info-text">{pageData.description}</p>
           <input type="text" hidden readOnly name="speaker_id" value={pageData.id} />
-          <button type="submit" className="submit_btn">Пригласить</button>
+          {(isAuthenticated == true ) && (
+            <button type="submit" className="submit_btn" onClick={() => handleAdd() }>Пригласить</button>
+          )}
         </div>
         {/* Картинка */}
         <div className="col-12 col-md-6 order-1 order-md-2 d-flex justify-content-center align-items-center">

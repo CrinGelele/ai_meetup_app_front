@@ -16,8 +16,6 @@ const Navigation = () => {
     const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated); // получение из стора значения флага состояния приложения
     const username = useSelector((state: RootState) => state.user.username); // получение значения username из стора
 
-    console.log(username)
-
     // Обработчик события нажатия на кнопку "Выйти"
     const handleExit = async ()  => {
         await dispatch(logoutUserAsync());

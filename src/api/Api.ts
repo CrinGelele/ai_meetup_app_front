@@ -416,11 +416,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request DELETE:/meetups/{meetup_id}/
      * @secure
      */
-    deleteSingleMeetup: (meetupId: string, data: Meetup, params: RequestParams = {}) =>
+    deleteSingleMeetup: (meetupId: string, params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/meetups/${meetupId}/`,
         method: "DELETE",
-        body: data,
         secure: true,
         ...params,
       }),
