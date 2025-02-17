@@ -25,3 +25,16 @@ export interface Speaker {
       (response) => response.json()
     );
   }; 
+
+  export interface Meetup {
+    "id": number;
+    "status": string;
+    "user": number;
+    "moderator": string;
+    "creation_date": Date | null;
+    "submit_date": Date | null;
+    "resolve_date": Date | null;
+    "topic": string;
+    "meetup_date": Date | null;
+    "viewers": string;
+  }

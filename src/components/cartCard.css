@@ -1,0 +1,23 @@
+.meetup-card {
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+    height: 170px;
+    width: 150px;
+    overflow: hidden;
+    align-items: center;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 30px;
+    box-shadow: -6px -6px 20px rgba(186, 202, 247, .1), 24px 24px 30px rgba(209, 220, 250, .12), 8px 8px 8px rgba(163, 184, 245, .1);
+
+    .speakers-counter {
+        height: 10%;
+        width: 90%;
+        margin: 0;
+        text-align: center;
+        font-family: "Inter", sans-serif;
+        font-weight: 500;
+        font-style: normal;
+    }

@@ -5,6 +5,8 @@ import { ROUTES } from "../Routes";
 import { HomePage } from "./pages/homePage";
 import Navigation from "./components/Navigation";
 import './App.css';
+import LoginPage from "./pages/loginPage"
+import MeetupPage from "./pages/meetupPage";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
             <Route path={ROUTES.HOME} index element={<HomePage />} />
             <Route path={ROUTES.SPEAKERS} element={<ITunesPage />} />
             <Route path={`${ROUTES.SPEAKERS}/:id`} element={<AlbumPage />} />
+            <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+            <Route path={`${ROUTES.MEETUP}/:current_meetup_id`} element={<MeetupPage />} />
           </Routes>
         </div>
     </div>

@@ -52,7 +52,7 @@ export const AlbumPage: FC = () => {
         {/* Картинка */}
         <div className="col-12 col-md-6 order-1 order-md-2 d-flex justify-content-center align-items-center">
           <img
-            src={pageData.img_url || defaultImage}
+            src={pageData.img_url ? pageData.img_url.replace('http://localhost:9000', '/minio') : defaultImage}
             className="img-fluid speaker-image m-0"
             alt="Speaker"
           />

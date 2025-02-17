@@ -3,59 +3,32 @@ import { FC, useState, useEffect } from "react";
 import { Col, Row, Spinner } from "react-bootstrap";
 import { Speaker, getSpeakers } from "../modules/aimaApi";
 import InputField from "../components/InputField";
+import { CartCard } from '../components/cartCard'
 import { BreadCrumbs } from "../components/BreadCrumbs";
 import { ROUTES, ROUTE_LABELS } from "../../Routes";
 import { SpeakerCard } from "../components/SpeakerCard";
 import { useNavigate } from "react-router-dom";
 import { SPEAKERS_MOCK } from "../modules/mock";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { setSearchValue, selectSearchValue } from '../slices/speakersSlice'
+import { getSpeakersList } from '../slices/speakersSlice'
+import { useAppDispatch, RootState } from '../store';
 
 const ITunesPage: FC = () => {
-  const dispatch = useDispatch();
-  const searchValue = useSelector(selectSearchValue); // Получаем значение поиска из Redux
-  const [loading, setLoading] = useState(false);
-  const [speakers, setSpeakers] = useState<Speaker[]>([]);
+  const dispatch = useAppDispatch();
+  const { searchValue, loading } = useSelector((state: RootState) => state.speakers); // Получаем значение поиска из Redux
+  const speakersData = useSelector((state: RootState) => state.speakers.speakersData);
+  const speakers = speakersData?.speakers || [];
+  const current_meetup_id = speakersData?.current_meetup_id || null;
+  const speakers_quantity = speakersData?.speakers_quantity || null;
+  
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    setLoading(true);
-    getSpeakers()
-      .then((response) => {
-        setSpeakers(response.speakers);
-        setLoading(false);
-      })
-      .catch(() => {
-        setSpeakers(SPEAKERS_MOCK.speakers); // Используем mock данные в случае ошибки
-        setLoading(false);
-      });
-  }, []); // Пустой массив зависимостей означает, что эффект выполнится только один раз
-
-  const handleSearch = () => {
-    setLoading(true);
-    getSpeakers()
-      .then((response) => {
-        setSpeakers(
-          response.speakers.filter((item) =>
-              item.last_name
-                  .toLocaleLowerCase()
-                  .startsWith(searchValue.toLocaleLowerCase())
-          )
-        );
-        setLoading(false);
-      })
-      .catch(() => { // В случае ошибки используем mock данные, фильтруем по имени
-        setSpeakers(
-          SPEAKERS_MOCK.speakers.filter((item) =>
-            item.last_name
-              .toLocaleLowerCase()
-              .startsWith(searchValue.toLocaleLowerCase())
-          )
-        ); 
-        setLoading(false);
-      });
-  };
+    dispatch(getSpeakersList());
+  }, [dispatch]); // Пустой массив зависимостей означает, что эффект выполнится только один раз
+  
   const handleCardClick = (id: number) => {
     // клик на карточку, переход на страницу альбома
     navigate(`${ROUTES.SPEAKERS}/${id}`);
@@ -69,7 +42,6 @@ const ITunesPage: FC = () => {
         value={searchValue}
         onChange={(e) => dispatch(setSearchValue(e.target.value))}
         loading={loading}
-        onSubmit={handleSearch}
       />
 
       {loading && ( // здесь можно было использовать тернарный оператор, но это усложняет читаемость
@@ -92,6 +64,9 @@ const ITunesPage: FC = () => {
                 />
               </Col>
             ))}
+            <Col md={4} className="mb-0 mt-3 d-flex justify-content-center align-items-center">
+              <CartCard value={speakers_quantity} meetup_id={current_meetup_id}/>
+            </Col>
           </Row>
         ))}
     </div>

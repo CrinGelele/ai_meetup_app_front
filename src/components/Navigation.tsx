@@ -3,8 +3,29 @@ import { Link } from 'react-router-dom';
 import { ROUTES, ROUTE_LABELS } from '../../Routes';
 import logo from '../assets/logo.jpeg'
 import './Navigation.css'
+import { useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, RootState } from '../store';
+import { logoutUserAsync } from '../slices/usersSlice'; 
+import { setSearchValue, getSpeakersList } from '../slices/speakersSlice'; 
 
 const Navigation = () => {
+
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated); // получение из стора значения флага состояния приложения
+    const username = useSelector((state: RootState) => state.user.username); // получение значения username из стора
+
+    console.log(username)
+
+    // Обработчик события нажатия на кнопку "Выйти"
+    const handleExit = async ()  => {
+        await dispatch(logoutUserAsync());
+        dispatch(setSearchValue('')); // можно реализовать в `extrareducers` у функции logoutUserAsynс
+        navigate('/speakers'); // переход на страницу списка услуг
+        await dispatch(getSpeakersList()); // для показа очищения поля поиска
+    }
+
     return (
         <Navbar expand="lg" className="m-0 p-0">
             <Container className="d-flex flex-dir-row p-0 align-items-center">
@@ -27,6 +48,19 @@ const Navigation = () => {
                     <Nav.Link as={Link} to={ROUTES.SPEAKERS} className="d-inline-block px-3">
                     {ROUTE_LABELS.SPEAKERS}
                     </Nav.Link>
+                    <Nav.Link className="d-inline-block px-3">
+                    {username || 'Гость'}
+                    </Nav.Link>
+                    {(isAuthenticated == false ) && (
+                        <Nav.Link as={Link} to={ROUTES.LOGIN} className="d-inline-block px-3">
+                        Войти
+                        </Nav.Link>
+                    )}
+                    {(isAuthenticated == true) && (
+                        <Nav.Link onClick={handleExit} className="d-inline-block px-3">
+                        Выйти
+                        </Nav.Link>
+                    )}
                 </Nav>
                 </Navbar.Collapse>
             </Container>
