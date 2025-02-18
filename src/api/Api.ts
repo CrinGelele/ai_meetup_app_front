@@ -54,6 +54,8 @@ export interface Invite {
 }
 
 export interface User {
+
+  userId?: string;
   /**
    * Логин
    * @minLength 1
@@ -350,11 +352,16 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/meetups/
      * @secure
      */
-    getMeetupsList: (params: RequestParams = {}) =>
+    getMeetupsList: (params: { start?: string, end?: string, status?: string } & RequestParams = {}) =>
       this.request<void, any>({
         path: `/meetups/`,
         method: "GET",
         secure: true,
+        query: {
+          start: params.start,
+          end: params.end,
+          status: params.status
+        },
         ...params,
       }),
 
@@ -432,11 +439,14 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request PUT:/meetups/{meetup_id}/moderate/
      * @secure
      */
-    moderateMeetup: (meetupId: string, params: RequestParams = {}) =>
+    moderateMeetup: (meetupId: string, params: { status?: string } & RequestParams = {}) =>
       this.request<void, any>({
         path: `/meetups/${meetupId}/moderate/`,
         method: "PUT",
         secure: true,
+        body: {
+          status: params.status,
+        },
         ...params,
       }),
 

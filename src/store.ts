@@ -3,6 +3,7 @@ import { speakersReducer } from "./slices/speakersSlice"
 import { useDispatch } from 'react-redux';
 import userReducer from './slices/usersSlice'; 
 import { meetupsReducer } from './slices/meetupsSlice'
+import { meetupssReducer } from './slices/meetupssSlice'
 
 
 export const store = configureStore({
@@ -10,6 +11,7 @@ export const store = configureStore({
         speakers: speakersReducer,
         user: userReducer,
         meetup: meetupsReducer,
+        meetups: meetupssReducer,
     })
 })
 

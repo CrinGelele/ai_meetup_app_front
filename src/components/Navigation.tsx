@@ -15,6 +15,7 @@ const Navigation = () => {
     const dispatch = useAppDispatch();
     const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated); // получение из стора значения флага состояния приложения
     const username = useSelector((state: RootState) => state.user.username); // получение значения username из стора
+    const isModerator = useSelector((state: RootState) => state.user.isModerator);
 
     // Обработчик события нажатия на кнопку "Выйти"
     const handleExit = async ()  => {
@@ -40,12 +41,20 @@ const Navigation = () => {
                 <Navbar.Collapse id="navbar-nav">
                 {/* Навигационные ссылки (справа) */}
                 <Nav className="ms-auto"> {/* Выравнивание справа */}
+                    {(isModerator == true ) && (
+                        <Nav.Link as={Link} to={ROUTES.SPEAKERSEDITOR} className="d-inline-block px-3">
+                        Редактирование спикеров
+                        </Nav.Link>
+                    )}
                     <Nav.Link as={Link} to={ROUTES.HOME} className="d-inline-block px-3">
                     {ROUTE_LABELS.HOME}
                     </Nav.Link>
                     <Nav.Link as={Link} to={ROUTES.SPEAKERS} className="d-inline-block px-3">
                     {ROUTE_LABELS.SPEAKERS}
                     </Nav.Link>
+                    <Nav.Link as={Link} to={ROUTES.MEETUPSEDITOR} className="d-inline-block px-3">
+                        Митапы
+                        </Nav.Link>
                     <Nav.Link className="d-inline-block px-3">
                     {username || 'Гость'}
                     </Nav.Link>

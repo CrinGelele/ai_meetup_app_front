@@ -34,6 +34,34 @@
     }
 }
 
+.m-commit-btn {
+    display: flex;
+    margin-top: 0%;
+    height: 40%;
+    width: 120px;
+    background-color: green !important;
+    color: white;
+    font-size: 15px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid green !important;
+}
+
+.m-reject-btn {
+    display: flex;
+    margin-top: 0%;
+    height: 40%;
+    width: 120px;
+    background-color: red !important;
+    color: white;
+    font-size: 15px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid red !important;
+}
+
 .meetup-card-list {
     display: flex;
     flex-direction: column;

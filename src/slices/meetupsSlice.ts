@@ -181,7 +181,6 @@ const initialState: MeetupState = {
           })
       }
     });
-  
+
   export const { setError, setMeetupData, setInvites } = meetupSlice.actions;
   export const meetupsReducer = meetupSlice.reducer;
-  //export default vacancyApplicationDraftSlice.reducer;

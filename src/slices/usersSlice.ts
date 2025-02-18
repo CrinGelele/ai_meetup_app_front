@@ -1,14 +1,19 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../api';
+import { stat } from 'fs';
 
 interface UserState {
+  userId: string;
   username: string;
+  isModerator: boolean;
   isAuthenticated: boolean;
   error?: string | null; 
 }
 
 const initialState: UserState = {
+  userId: '',
   username: '',
+  isModerator: false,
   isAuthenticated: false,
   error: null,
 };
@@ -19,7 +24,6 @@ export const loginUserAsync = createAsyncThunk(
   async (credentials: { username: string; password: string }, { rejectWithValue }) => {
     try {
       const response = await api.login.loginCreate(credentials);
-      console.log(response.data)
       return response.data; 
     } catch (error) {
       return rejectWithValue('Ошибка авторизации'); // Возвращаем ошибку в случае неудачи
@@ -33,7 +37,6 @@ export const logoutUserAsync = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await api.logout.logoutCreate();
-      console.log(response.data)
       return response.data; 
     } catch (error) {
       return rejectWithValue('Ошибка при выходе из системы'); 
@@ -51,8 +54,10 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUserAsync.fulfilled, (state, action) => {
-        const { username } = action.payload;
+        const { username, is_staff, userId } = action.payload;
+        state.userId = userId ?? '';
         state.username = username;
+        state.isModerator = is_staff ?? false;
         state.isAuthenticated = true;
         state.error = null;
       })
@@ -62,8 +67,10 @@ const userSlice = createSlice({
       })
 
       .addCase(logoutUserAsync.fulfilled, (state) => {
+        state.userId = '';
         state.username = '';
         state.isAuthenticated = false;
+        state.isModerator = false;
         state.error = null;
       })
       .addCase(logoutUserAsync.rejected, (state, action) => {
