@@ -37,4 +37,5 @@ export interface Speaker {
     "topic": string;
     "meetup_date": Date | null;
     "viewers": string;
+    "qr": string;
   }

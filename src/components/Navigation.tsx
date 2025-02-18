@@ -41,11 +41,6 @@ const Navigation = () => {
                 <Navbar.Collapse id="navbar-nav">
                 {/* Навигационные ссылки (справа) */}
                 <Nav className="ms-auto"> {/* Выравнивание справа */}
-                    {(isModerator == true ) && (
-                        <Nav.Link as={Link} to={ROUTES.SPEAKERSEDITOR} className="d-inline-block px-3">
-                        Редактирование спикеров
-                        </Nav.Link>
-                    )}
                     <Nav.Link as={Link} to={ROUTES.HOME} className="d-inline-block px-3">
                     {ROUTE_LABELS.HOME}
                     </Nav.Link>

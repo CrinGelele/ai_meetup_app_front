@@ -2,12 +2,12 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Form, Button, Alert, Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../store';
-import { loginUserAsync } from '../slices/usersSlice';
+import { registerUser } from '../slices/usersSlice';
 import { useNavigate, Link } from "react-router-dom";
 import Navigation from "../components/Navigation";
 import { ROUTES } from '../../Routes';
 
-const LoginPage: React.FC = () => {
+const RegisterPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
@@ -23,15 +23,15 @@ const LoginPage: React.FC = () => {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         if (formData.username && formData.password) {
-            await dispatch(loginUserAsync(formData)); // Отправляем 'thunk'
-            navigate(`${ROUTES.SPEAKERS}`); // переход на страницу услуг
+            await dispatch(registerUser(formData)); // Отправляем 'thunk'
+            navigate(`${ROUTES.LOGIN}`); // переход на страницу услуг
         }
     };
 
     return (
         <Container style={{ maxWidth: '100%', marginTop: '0' }}> 
             <Container style={{ maxWidth: '400px', marginTop: '150px' }}>
-                <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Рады снова Вас видеть!</h2>
+                <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Рады новым лицам!</h2>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="username" style={{ marginBottom: '15px' }}>
@@ -55,11 +55,11 @@ const LoginPage: React.FC = () => {
                         />
                     </Form.Group>
                     <Button variant="primary" type="submit" style={{ width: '100%' }}>
-                        Войти
+                        Регистрация
                     </Button>
                     <Button variant="secondary" className="mt-1" style={{ width: '100%' }}>
-                    <Link to={ROUTES.REGISTER} style={{ textDecoration: 'none', color: 'inherit' }}>
-                        Регистрация
+                    <Link to={ROUTES.LOGIN} style={{ textDecoration: 'none', color: 'inherit' }}>
+                        Вход
                     </Link>
                     </Button>
                 </Form>
@@ -68,4 +68,4 @@ const LoginPage: React.FC = () => {
     );
 };
 
-export default LoginPage;
+export default RegisterPage;

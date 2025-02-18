@@ -2,6 +2,7 @@ export const ROUTES = {
     HOME: "/",
     SPEAKERS: "/speakers",
     LOGIN: "/login",
+    REGISTER: "/register",
     MEETUP: "/meetup",
     SPEAKERSEDITOR: "/speakers-editor",
     FORBIDDEN: "/403",
@@ -15,5 +16,6 @@ export const ROUTES = {
     MEETUP: "Митап",
     SPEAKERSEDITOR: "Редактирование спикеров",
     FORBIDDEN: "403",
-    MEETUPSEDITOR: "Митапы"
+    MEETUPSEDITOR: "Митапы",
+    REGISTER: "Регистрация",
   };

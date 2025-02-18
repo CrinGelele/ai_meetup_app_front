@@ -123,6 +123,8 @@ export interface Meetup {
    * @minLength 1
    */
   viewers?: string;
+
+  qr?: string;
 }
 
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from "axios";

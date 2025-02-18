@@ -13,6 +13,7 @@ import { Page403 } from './pages/403Page';
 import { Page404 } from './pages/404Page';
 import { useSelector } from 'react-redux';
 import {RootState} from './store';
+import RegisterPage from "./pages/registerPage" 
 
 const ProtectedRoute = ({ children, isAuthenticated, isModerator }) => {
   if (!isAuthenticated || !isModerator) {
@@ -45,6 +46,7 @@ function App() {
             <Route path={ROUTES.SPEAKERS} element={<ITunesPage />} />
             <Route path={`${ROUTES.SPEAKERS}/:id`} element={<AlbumPage />} />
             <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+            <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
             <Route path={`${ROUTES.MEETUP}/:current_meetup_id`} element={<MeetupPage />} />
             <Route
               path={ROUTES.SPEAKERSEDITOR}

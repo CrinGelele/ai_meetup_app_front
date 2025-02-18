@@ -8,6 +8,7 @@ import { RootState, useAppDispatch } from '../store';
 import './meetupPage.css';
 import { BreadCrumbs } from "../components/BreadCrumbs";
 import { Meetup } from '../modules/aimaApi';
+import qr_icon from '../assets/qr_icon.png'
 
 const POLLING_INTERVAL = 5000; // 5 секунд
 
@@ -137,6 +138,18 @@ const MeetupsEditor: React.FC = () => {
             <div className="m-text-container d-flex flex-column">
                 <p className="primary-text">Статус: {meetup.status || '-'}</p>
               <p className="primary-text">Кол-во зрителей: {meetup.viewers || '-'}</p>
+            </div>
+            <div className="dinner-icon">
+                {meetup.status === 'Сформирована' ? (
+                <></>
+                ) : (
+                <div className="qr-hover-wrapper">
+                    <img className="status-icon" src={qr_icon} alt="QR Icon" />
+                    <div className="qr-hover">
+                    {meetup.qr && <img className="qr-code" src={`data:image/png;base64,${meetup.qr}`} alt="QR Code" />}
+                    </div>
+                </div>
+                )}
             </div>
             {meetup.status === 'Сформирована' && isModerator && (
             <>
