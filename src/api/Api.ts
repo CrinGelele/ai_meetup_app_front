@@ -172,7 +172,7 @@ export class HttpClient<SecurityDataType = unknown> {
   private format?: ResponseType;
 
   constructor({ securityWorker, secure, format, ...axiosConfig }: ApiConfig<SecurityDataType> = {}) {
-    this.instance = axios.create({ ...axiosConfig, baseURL: axiosConfig.baseURL || "http://192.168.1.80:8000/api" });
+    this.instance = axios.create({ ...axiosConfig, baseURL: axiosConfig.baseURL || import.meta.env.VITE_API_URL });
     this.secure = secure;
     this.format = format;
     this.securityWorker = securityWorker;
@@ -580,11 +580,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/speakers/{speaker_id}/update_image/
      * @secure
      */
-    addSpeakerPhoto: (speakerId: string, params: RequestParams = {}) =>
+    addSpeakerPhoto: (speakerId: string, formData: FormData, params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/speakers/${speakerId}/update_image/`,
         method: "POST",
         secure: true,
+        body: formData, // Передаем FormData
+        headers: {
+          "Content-Type": "multipart/form-data", // Указываем правильный Content-Type
+        },
         ...params,
       }),
   };

@@ -2,14 +2,15 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Form, Button, Alert, Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../store';
-import { loginUserAsync } from '../slices/usersSlice';
-import { useNavigate, Link } from "react-router-dom";
+import { changePassword, loginUserAsync } from '../slices/usersSlice';
+import { useNavigate } from "react-router-dom";
 import { ROUTES } from '../../Routes';
 
-const LoginPage: React.FC = () => {
+const AccountPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
-
+    const username_acc = useSelector((state: RootState) => state.user.username);
+    const userid_acc = useSelector((state: RootState) => state.user.userId);
     const [formData, setFormData] = useState({ username: '', password: '' });
     const error = useSelector((state: RootState) => state.user.error);
 
@@ -21,8 +22,9 @@ const LoginPage: React.FC = () => {
     // Обработчки события нажатия на кнопку "Войти"
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        formData.username = username_acc
         if (formData.username && formData.password) {
-            await dispatch(loginUserAsync(formData)); // Отправляем 'thunk'
+            await dispatch(changePassword({userID: userid_acc, username: formData.username, password: formData.password})); // Отправляем 'thunk'
             navigate(`${ROUTES.SPEAKERS}`); // переход на страницу услуг
         }
     };
@@ -30,19 +32,9 @@ const LoginPage: React.FC = () => {
     return (
         <Container style={{ maxWidth: '100%', marginTop: '0' }}> 
             <Container style={{ maxWidth: '400px', marginTop: '150px' }}>
-                <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Рады снова Вас видеть!</h2>
+                <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>{username_acc}</h2>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId="username" style={{ marginBottom: '15px' }}>
-                        <Form.Label>Имя пользователя</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="username"
-                            value={formData.username}
-                            onChange={handleChange}
-                            placeholder="Введите имя пользователя"
-                        />
-                    </Form.Group>
                     <Form.Group controlId="password" style={{ marginBottom: '20px' }}>
                         <Form.Label>Пароль</Form.Label>
                         <Form.Control
@@ -54,12 +46,7 @@ const LoginPage: React.FC = () => {
                         />
                     </Form.Group>
                     <Button variant="primary" type="submit" style={{ width: '100%' }}>
-                        Войти
-                    </Button>
-                    <Button variant="secondary" className="mt-1" style={{ width: '100%' }}>
-                    <Link to={ROUTES.REGISTER} style={{ textDecoration: 'none', color: 'inherit' }}>
-                        Регистрация
-                    </Link>
+                        Изменить
                     </Button>
                 </Form>
             </Container>
@@ -67,4 +54,4 @@ const LoginPage: React.FC = () => {
     );
 };
 
-export default LoginPage;
+export default AccountPage;

@@ -6,6 +6,7 @@ import { ROUTES } from '../../Routes';
 import { getMeetup, deleteMeetup, setError, setMeetupData, updateMeetup, setInvites, deleteInvite, commitMeetup, updateInvite } from '../slices/meetupsSlice';
 import { RootState, useAppDispatch } from '../store';
 import './meetupPage.css';
+import defaultImage from "../assets/defaultImage.png"
 
 const MeetupPage: React.FC = () => {
   const { current_meetup_id } = useParams<{ current_meetup_id: string }>();
@@ -172,7 +173,7 @@ const MeetupPage: React.FC = () => {
                     <p className="primary-text fs-3"> &#128465;</p>
                 </div>
             )}
-            <img src={invite.speaker.img_url} alt="speaker" onClick={() => handleCardClick(invite.speaker.id)} />
+            <img src={invite.speaker.img_url || defaultImage} alt="speaker" onClick={() => handleCardClick(invite.speaker.id)} />
             <div className="m-text-container">
               <p className="primary-text">{invite.speaker.first_name} {invite.speaker.last_name}</p>
             </div>

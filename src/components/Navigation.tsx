@@ -41,6 +41,11 @@ const Navigation = () => {
                 <Navbar.Collapse id="navbar-nav">
                 {/* Навигационные ссылки (справа) */}
                 <Nav className="ms-auto"> {/* Выравнивание справа */}
+                    {(isAuthenticated == true) && (isModerator == true) && (
+                        <Nav.Link as={Link} to={ROUTES.SPEAKERSCREATOR} className="d-inline-block px-3">
+                            Добавить спикера
+                        </Nav.Link>
+                    )}
                     <Nav.Link as={Link} to={ROUTES.HOME} className="d-inline-block px-3">
                     {ROUTE_LABELS.HOME}
                     </Nav.Link>
@@ -49,10 +54,16 @@ const Navigation = () => {
                     </Nav.Link>
                     <Nav.Link as={Link} to={ROUTES.MEETUPSEDITOR} className="d-inline-block px-3">
                         Митапы
-                        </Nav.Link>
-                    <Nav.Link className="d-inline-block px-3">
-                    {username || 'Гость'}
                     </Nav.Link>
+                    {isAuthenticated ? (
+                        <Nav.Link as={Link} to={ROUTES.ACCOUNT} className="d-inline-block px-3">
+                            {username}
+                        </Nav.Link>
+                    ) : (
+                        <Nav.Link className="d-inline-block px-3">
+                            Гость
+                        </Nav.Link>
+                    )}
                     {(isAuthenticated == false ) && (
                         <Nav.Link as={Link} to={ROUTES.LOGIN} className="d-inline-block px-3">
                         Войти

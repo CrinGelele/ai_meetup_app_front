@@ -1,24 +1,45 @@
-import { FC } from 'react'
-import { Button } from 'react-bootstrap'
-import './InputField.css'
-import { RootState, useAppDispatch } from '../store';
+import { FC, useState } from 'react'; // Добавлен useState
+import { Button } from 'react-bootstrap';
+import './InputField.css';
+import { useAppDispatch } from '../store';
 import { getSpeakersList, setSearchValue } from '../slices/speakersSlice';
 
 interface Props {
-    value: string
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    loading?: boolean
-    buttonTitle?: string
+    value: string;
+    loading?: boolean;
+    buttonTitle?: string;
 }
 
-const InputField: FC<Props> = ({ value, onChange, loading}) => {
+const InputField: FC<Props> = ({ value, loading }) => {
     const dispatch = useAppDispatch();
+    const [inputValue, setInputValue] = useState(value); // Состояние для значения input
+
+    // Обработчик изменения значения в input
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue(e.target.value);
+    };
+
+    // Обработчик нажатия на кнопку
+    const handleButtonClick = () => {
+        dispatch(setSearchValue(inputValue)); // Устанавливаем значение в store
+        dispatch(getSpeakersList()); // Выполняем поиск
+    };
+
     return (
-    <div className="search-container mb-4">
-        <input value={value}  onChange={onChange}/>
-        <Button disabled={loading} onClick={() => dispatch(getSpeakersList())} className="search-btn">&#128269;</Button>
-    </div>
+        <div className="search-container mb-4">
+            <input
+                value={inputValue} // Используем состояние для значения input
+                onChange={handleInputChange} // Обработчик изменения
+            />
+            <Button
+                disabled={loading}
+                onClick={handleButtonClick} // Обработчик нажатия
+                className="search-btn"
+            >
+                &#128269;
+            </Button>
+        </div>
     );
 };
 
-export default InputField
+export default InputField;

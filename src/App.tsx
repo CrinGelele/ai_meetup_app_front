@@ -7,13 +7,15 @@ import Navigation from "./components/Navigation";
 import './App.css';
 import LoginPage from "./pages/loginPage"
 import MeetupPage from "./pages/meetupPage";
-import SpeakersEditor from './pages/speakersEditor';
+import SpeakerEditor from './pages/speakersEditor';
 import MeetupsEditor from './pages/meetupsEditor'
 import { Page403 } from './pages/403Page';
 import { Page404 } from './pages/404Page';
 import { useSelector } from 'react-redux';
 import {RootState} from './store';
-import RegisterPage from "./pages/registerPage" 
+import RegisterPage from "./pages/registerPage";
+import AccountPage from "./pages/accountPage";
+import AddSpeakerPage from "./pages/AddSpeakerPage";
 
 const ProtectedRoute = ({ children, isAuthenticated, isModerator }) => {
   if (!isAuthenticated || !isModerator) {
@@ -49,10 +51,18 @@ function App() {
             <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
             <Route path={`${ROUTES.MEETUP}/:current_meetup_id`} element={<MeetupPage />} />
             <Route
-              path={ROUTES.SPEAKERSEDITOR}
+              path={`${ROUTES.SPEAKERSEDITOR}/:speakerId`}
               element={
                 <ProtectedRoute isAuthenticated={isAuthenticated} isModerator={isModerator}>
-                  <SpeakersEditor />
+                  <SpeakerEditor />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path={ROUTES.SPEAKERSCREATOR}
+              element={
+                <ProtectedRoute isAuthenticated={isAuthenticated} isModerator={isModerator}>
+                  <AddSpeakerPage />
                 </ProtectedRoute>
               }
             />
@@ -61,6 +71,14 @@ function App() {
               element={
                 <AuthRoute isAuthenticated={isAuthenticated}>
                   <MeetupsEditor />
+                </AuthRoute>
+              }
+            />
+            <Route
+              path={ROUTES.ACCOUNT}
+              element={
+                <AuthRoute isAuthenticated={isAuthenticated}>
+                  <AccountPage />
                 </AuthRoute>
               }
             />

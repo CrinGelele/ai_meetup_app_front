@@ -21,10 +21,27 @@ export interface Speaker {
   export const getSpeakerById = async (
     id: number | string
   ): Promise<Speaker> => {
-    return fetch(`/api/api/speakers/${id}/`).then(
-      (response) => response.json()
-    );
-  }; 
+    // Таймаут 5 секунд
+    const timeout = 5000;
+  
+    // Создаем промис для таймаута
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => {
+        reject(new Error('Запрос превысил время ожидания'));
+      }, timeout);
+    });
+  
+    // Запускаем запрос и таймаут одновременно
+    try {
+      const response = await Promise.race([
+        fetch(`/api/api/speakers/${id}/`).then((response) => response.json()),
+        timeoutPromise,
+      ]);
+      return response;
+    } catch (error) {
+      throw new Error('Ошибка при загрузке данных');
+    }
+  };
 
   export interface Meetup {
     "id": number;

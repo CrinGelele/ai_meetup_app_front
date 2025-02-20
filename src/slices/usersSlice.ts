@@ -42,6 +42,18 @@ export const loginUserAsync = createAsyncThunk(
   }
 );
 
+export const changePassword = createAsyncThunk(
+  'user/changePassword',
+  async (credentials: { userID: string; username: string; password: string }, { rejectWithValue }) => {
+    try {
+      const response = await api.user.userUserPartialUpdate(Number(credentials.userID),{username: credentials.username, password: credentials.password});
+      return response.data; 
+    } catch (error) {
+      return rejectWithValue('Ошибка авторизации'); // Возвращаем ошибку в случае неудачи
+    }
+  }
+);
+
 // Асинхронное действие для деавторизации
 export const logoutUserAsync = createAsyncThunk(
   'user/logoutUserAsync',

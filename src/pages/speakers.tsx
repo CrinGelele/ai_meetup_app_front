@@ -14,6 +14,8 @@ import { setSearchValue, selectSearchValue } from '../slices/speakersSlice'
 import { getSpeakersList } from '../slices/speakersSlice'
 import { useAppDispatch, RootState } from '../store';
 
+const POLLING_INTERVAL = 20000; // 5 секунд
+
 const ITunesPage: FC = () => {
   const dispatch = useAppDispatch();
   const { searchValue, loading } = useSelector((state: RootState) => state.speakers); // Получаем значение поиска из Redux
@@ -27,7 +29,12 @@ const ITunesPage: FC = () => {
 
   useEffect(() => {
     dispatch(getSpeakersList());
-  }, [dispatch]); // Пустой массив зависимостей означает, что эффект выполнится только один раз
+    const interval = setInterval(() => {
+        dispatch(getSpeakersList()); // Запрос для фильтров
+    }, POLLING_INTERVAL);
+
+    return () => clearInterval(interval);
+  }, [dispatch]);
   
   const handleCardClick = (id: number) => {
     // клик на карточку, переход на страницу альбома
@@ -40,7 +47,6 @@ const ITunesPage: FC = () => {
       
       <InputField
         value={searchValue}
-        onChange={(e) => dispatch(setSearchValue(e.target.value))}
         loading={loading}
       />
 

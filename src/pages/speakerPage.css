@@ -69,6 +69,47 @@
     border-radius: 10px;
     border: 1px solid black;
   }
+
+  .edit_btn {
+    display: flex;
+    margin-top: 3%;
+    height: 50px; /* Фиксированная высота для кнопки */
+    width: 100%;
+    color: black;
+    font-size: 1.25rem; /* Используем rem для адаптивности */
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid unset;
+  }
+
+  .delete_btn {
+    display: flex;
+    margin-top: 3%;
+    height: 50px; /* Фиксированная высота для кнопки */
+    width: 100%;
+    background-color: red;
+    color: white;
+    font-size: 1.25rem; /* Используем rem для адаптивности */
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid red;
+  }
+
+  .update_photo_btn {
+    display: flex;
+    margin-top: 3%;
+    height: 50px; /* Фиксированная высота для кнопки */
+    width: 100%;
+    background-color: green;
+    color: white;
+    font-size: 1.25rem; /* Используем rem для адаптивности */
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid green;
+  }
   
   /* Медиа-запросы для адаптивности */
   @media (max-width: 768px) {
