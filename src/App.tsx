@@ -37,7 +37,7 @@ function App() {
   const isModerator = useSelector((state: RootState) => state.user.isModerator);
 
   return (
-    <BrowserRouter basename="/ai_meetup_app_front">
+    <BrowserRouter>
     <div className="space">
         <Navigation/>
         <div className="content-container">

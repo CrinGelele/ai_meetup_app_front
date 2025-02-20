@@ -30,7 +30,7 @@ const Navigation = () => {
             <Container className="d-flex flex-dir-row p-0 align-items-center">
                 {/* Логотип и бренд (слева) */}
                 <Navbar.Brand as={Link} to={ROUTES.HOME} className="logo-container">
-                <img src={logo} alt="aima" title="aima" />
+                
                 <span>Aima</span>
                 </Navbar.Brand>
 

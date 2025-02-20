@@ -44,6 +44,8 @@
         --tw-text-opacity: 1;
         color: rgb(45 143 254 / var(--tw-text-opacity));
         font-weight: 300;
+        position: relative;
+        z-index: 10;
     }
     }
 
