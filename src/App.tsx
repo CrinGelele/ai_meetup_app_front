@@ -16,6 +16,7 @@ import {RootState} from './store';
 import RegisterPage from "./pages/registerPage";
 import AccountPage from "./pages/accountPage";
 import AddSpeakerPage from "./pages/AddSpeakerPage";
+import { SpeakersListEditor } from "./pages/speakersListEditor";
 
 const ProtectedRoute = ({ children, isAuthenticated, isModerator }) => {
   if (!isAuthenticated || !isModerator) {
@@ -55,6 +56,14 @@ function App() {
               element={
                 <ProtectedRoute isAuthenticated={isAuthenticated} isModerator={isModerator}>
                   <SpeakerEditor />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path={ROUTES.SPEAKERSLISTEDITOR}
+              element={
+                <ProtectedRoute isAuthenticated={isAuthenticated} isModerator={isModerator}>
+                  <SpeakersListEditor />
                 </ProtectedRoute>
               }
             />

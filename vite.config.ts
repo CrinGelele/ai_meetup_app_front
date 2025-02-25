@@ -9,12 +9,13 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 export default defineConfig({
   plugins: [react()],
-  base: "/ai_meetup_app_front",
+  base: "/",
   server: {
     proxy: {
       "/api": {
         target: process.env.VITE_API_URL,
         changeOrigin: true,
+        secure: false, // Позволяет работать без HTTPS
         rewrite: (path) => path.replace(/^\/api/, "/"),
       },
       "/minio": {

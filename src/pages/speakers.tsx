@@ -1,16 +1,13 @@
 import "./speakers.css";
-import { FC, useState, useEffect } from "react";
+import { FC, useEffect } from "react";
 import { Col, Row, Spinner } from "react-bootstrap";
-import { Speaker, getSpeakers } from "../modules/aimaApi";
 import InputField from "../components/InputField";
 import { CartCard } from '../components/cartCard'
 import { BreadCrumbs } from "../components/BreadCrumbs";
 import { ROUTES, ROUTE_LABELS } from "../../Routes";
 import { SpeakerCard } from "../components/SpeakerCard";
 import { useNavigate } from "react-router-dom";
-import { SPEAKERS_MOCK } from "../modules/mock";
 import { useSelector } from "react-redux";
-import { setSearchValue, selectSearchValue } from '../slices/speakersSlice'
 import { getSpeakersList } from '../slices/speakersSlice'
 import { useAppDispatch, RootState } from '../store';
 

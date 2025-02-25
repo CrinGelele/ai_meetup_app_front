@@ -42,8 +42,8 @@ const Navigation = () => {
                 {/* Навигационные ссылки (справа) */}
                 <Nav className="ms-auto"> {/* Выравнивание справа */}
                     {(isAuthenticated == true) && (isModerator == true) && (
-                        <Nav.Link as={Link} to={ROUTES.SPEAKERSCREATOR} className="d-inline-block px-3">
-                            Добавить спикера
+                        <Nav.Link as={Link} to={ROUTES.SPEAKERSLISTEDITOR} className="d-inline-block px-3">
+                            Изменить спикеров
                         </Nav.Link>
                     )}
                     <Nav.Link as={Link} to={ROUTES.HOME} className="d-inline-block px-3">

@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import { inviteSpeaker } from '../slices/meetupsSlice';
 import { RootState, useAppDispatch } from '../store';
 import { api } from '../api'; // Импортируем API
+import { deleteSpeaker } from '../slices/speakersSlice'
 
 export const AlbumPage: FC = () => {
   const [pageData, setPageData] = useState<Speaker>();

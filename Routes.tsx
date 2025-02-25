@@ -8,7 +8,8 @@ export const ROUTES = {
     SPEAKERSCREATOR: "/speakers-create",
     FORBIDDEN: "/403",
     MEETUPSEDITOR: "/meetups-editor",
-    ACCOUNT: "/account"
+    ACCOUNT: "/account",
+    SPEAKERSLISTEDITOR: "/speakers-list-editor"
   }
   export type RouteKeyType = keyof typeof ROUTES;
   export const ROUTE_LABELS: {[key in RouteKeyType]: string} = {
@@ -21,5 +22,6 @@ export const ROUTES = {
     MEETUPSEDITOR: "Митапы",
     REGISTER: "Регистрация",
     ACCOUNT: "Личный кабинет",
-    SPEAKERSCREATOR: "Создание спикера"
+    SPEAKERSCREATOR: "Создание спикера",
+    SPEAKERSLISTEDITOR: "Модерация спикеров"
   };
