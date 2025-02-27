@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Row, Col, Button, Form } from 'react-bootstrap';
-import { ROUTES, ROUTE_LABELS } from '../../Routes';
+import { ROUTE_LABELS } from '../../Routes';
 import { getMeetups, getMeetupsFiltered, moderateMeetup } from '../slices/meetupssSlice';
 import { RootState, useAppDispatch } from '../store';
 import './meetupPage.css';
@@ -14,12 +13,11 @@ const POLLING_INTERVAL = 5000; // 5 секунд
 
 const MeetupsEditor: React.FC = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const { meetups } = useSelector((state: RootState) => state.meetups); 
   const isModerator = useSelector((state: RootState) => state.user.isModerator);
   const userId = useSelector((state: RootState) => state.user.userId);
 
-  const [isFiltered, setIsFiltered] = useState(false);
+  const [isFiltered] = useState(false);
 
   const [filters, setFilters] = useState({
     status: "",
@@ -29,7 +27,7 @@ const MeetupsEditor: React.FC = () => {
 
   const [filteredMeetups, setFilteredMeetups] = useState(meetups);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
 
@@ -44,12 +42,21 @@ const MeetupsEditor: React.FC = () => {
 
     // Применяем фильтрацию по дате начала
     if (filters.start) {
-      filtered = filtered.filter((meetup) => new Date(meetup.meetup_date) >= new Date(filters.start));
+      filtered = filtered.filter((meetup) => {
+        if (meetup.meetup_date) {
+          return new Date(meetup.meetup_date) >= new Date(filters.start);
+        }
+        return false;
+      });
     }
 
-    // Применяем фильтрацию по дате окончания
     if (filters.end) {
-      filtered = filtered.filter((meetup) => new Date(meetup.meetup_date) <= new Date(filters.end));
+      filtered = filtered.filter((meetup) => {
+        if (meetup.meetup_date) {
+          return new Date(meetup.meetup_date) <= new Date(filters.end);
+        }
+        return false;
+      });
     }
 
     // Фильтрация по пользователю
@@ -79,10 +86,6 @@ const MeetupsEditor: React.FC = () => {
     setFilteredMeetups(filterMeetups(meetups, filters));
   }, [meetups, filters, isModerator, userId]);
 
-  const handleCardClick = (meetup_id: number | undefined) => {
-    navigate(`${ROUTES.MEETUP}/${meetup_id}`);
-  };
-
   const handleCommit = (meetup_id: string) => {
     dispatch(moderateMeetup({meetup_id: meetup_id, status: "Завершена"}));
     dispatch(getMeetups());
@@ -91,17 +94,6 @@ const MeetupsEditor: React.FC = () => {
   const handleReject = (meetup_id: string) => {
     dispatch(moderateMeetup({meetup_id: meetup_id, status: "Отклонена"}));
     dispatch(getMeetups());
-  };
-
-  const handleFilter = () => {
-    setIsFiltered(true); // Включаем фильтрацию
-    // Здесь мы не вызываем getMeetupsFiltered напрямую, так как фильтрация происходит локально в useEffect
-  };
-
-  const resetFilter = () => {
-    setIsFiltered(false); // Отключаем фильтрацию
-    setFilters({ status: "", start: "", end: "" });
-    dispatch(getMeetups()); // Сбрасываем митапы и выводим все
   };
 
   return (
@@ -153,8 +145,8 @@ const MeetupsEditor: React.FC = () => {
             </div>
             {meetup.status === 'Сформирована' && isModerator && (
             <>
-                <Button variant="primary" className="m-commit-btn" value={meetup.id} onClick={() => handleCommit(meetup.id.toString())}>Подтвердить</Button>
-                <Button variant="primary" className="m-reject-btn" value={meetup.id} onClick={() => handleReject(meetup.id.toString())}>Отклонить</Button>
+                <Button variant="primary" className="m-commit-btn" value={meetup.id} onClick={() => meetup.id?.toString() && handleCommit(meetup.id.toString())}>Подтвердить</Button>
+                <Button variant="primary" className="m-reject-btn" value={meetup.id} onClick={() => meetup.id?.toString() && handleReject(meetup.id.toString())}>Отклонить</Button>
             </>
             )}
           </div>

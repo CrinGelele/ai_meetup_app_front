@@ -1,10 +1,10 @@
 export interface Speaker {
-    id: number;
+    id?: number | undefined;
     first_name: string;
     last_name: string;
     workplace: string;
-    description: string;
-    img_url: string;
+    description?: string | null | undefined;
+    img_url?: string | null | undefined;
   }
   export interface SpeakersResult {
     current_meetup_id: number,
@@ -44,15 +44,15 @@ export interface Speaker {
   };
 
   export interface Meetup {
-    "id": number;
+    "id"?: number | undefined;
     "status": string;
     "user": number;
-    "moderator": string;
-    "creation_date": Date | null;
-    "submit_date": Date | null;
-    "resolve_date": Date | null;
-    "topic": string;
-    "meetup_date": Date | null;
-    "viewers": string;
-    "qr": string;
+    "moderator"?: string | null | undefined;
+    "creation_date"?: string | undefined | null;
+    "submit_date"?: string | undefined | null;
+    "resolve_date"?: string | undefined | null;
+    "topic"?: string | null | undefined;
+    "meetup_date"?: string | undefined | null;
+    "viewers"?: string | undefined;
+    "qr"?: string | undefined;
   }

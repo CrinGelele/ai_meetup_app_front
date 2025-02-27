@@ -40,7 +40,8 @@ export const getSpeakersList = createAsyncThunk(
       const response = await Promise.race([
         await api.speakers.readSpeakersList({ speaker_name_to_find: speakers.searchValue }),
         timeoutPromise,
-      ]);
+      ]) as { data: any };
+      console.log(response.data)
       return response.data;
     } catch (error) {
       return rejectWithValue('Ошибка при загрузке данных');

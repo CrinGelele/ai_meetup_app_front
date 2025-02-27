@@ -13,7 +13,7 @@ const MeetupPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { invites, meetupData, error } = useSelector((state: RootState) => state.meetup);
+  const { invites, meetupData } = useSelector((state: RootState) => state.meetup);
   const isDraft = useSelector((state: RootState) => state.meetup.isDraft);
 
   const handleDeleteInvite = async (speaker_id: number) => {
@@ -26,12 +26,17 @@ const MeetupPage: React.FC = () => {
   const handleSaveMeetup = () => {
     if (current_meetup_id) {
         const meetupDataToSend = {
+            id: meetupData.id,
             status: meetupData.status,
             user: meetupData.user,
             topic: meetupData.topic ?? '', 
-            meetup_date: meetupData.meetup_date instanceof Date 
-            ? meetupData.meetup_date.toISOString() // Преобразуем Date в строку
-            : meetupData.meetup_date, // Оставляем как есть, если это строка
+            meetup_date: meetupData.meetup_date,
+            moderator: meetupData.moderator,
+            creation_date: meetupData.creation_date,
+            submit_date: meetupData.submit_date,
+            resolve_date: meetupData.resolve_date,
+            viewers: meetupData.viewers,
+            qr: meetupData.qr,
           };
       try {
         dispatch(updateMeetup({ current_meetup_id: current_meetup_id, meetupData: meetupDataToSend }));
@@ -55,16 +60,17 @@ const MeetupPage: React.FC = () => {
     dispatch(
       setInvites(
         invites.map((invite) =>
-          invite.speaker.id === speaker_id
+          invite.speaker && invite.speaker.id === speaker_id  // Проверяем, что speaker не undefined
             ? { ...invite, approx_perfomance_duration: Number(value) || null }
             : invite
         )
       )
     );
   };
+  
 
   const handleSaveInvite = async (speaker_id: number) => {
-    const inviteToUpdate = invites.find(invite => invite.speaker.id === speaker_id);
+    const inviteToUpdate = invites.find(invite => invite.speaker?.id === speaker_id); // Проверка с optional chaining
     if (inviteToUpdate && current_meetup_id) {
       try {
         await dispatch(updateInvite({ 
@@ -78,8 +84,6 @@ const MeetupPage: React.FC = () => {
     }
   };
   
-  
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (current_meetup_id) {
@@ -169,13 +173,13 @@ const MeetupPage: React.FC = () => {
         {invites.map((invite, index) => (
           <div key={index} className="speaker-card justify-content-between align-items-center">
             {(isDraft) && (
-                <div className="m-text-container" onClick={() => handleDeleteInvite(invite.speaker.id)}>
+                <div className="m-text-container" onClick={() => invite.speaker?.id && handleDeleteInvite(invite.speaker.id)}>
                     <p className="primary-text fs-3"> &#128465;</p>
                 </div>
             )}
-            <img src={invite.speaker.img_url || defaultImage} alt="speaker" onClick={() => handleCardClick(invite.speaker.id)} />
+            <img src={invite.speaker?.img_url || defaultImage} alt="speaker" onClick={() => invite.speaker?.id && handleCardClick(invite.speaker.id)} />
             <div className="m-text-container">
-              <p className="primary-text">{invite.speaker.first_name} {invite.speaker.last_name}</p>
+              <p className="primary-text">{invite.speaker?.first_name} {invite.speaker?.last_name}</p>
             </div>
             <Form.Control
               disabled={!isDraft} 
@@ -183,8 +187,8 @@ const MeetupPage: React.FC = () => {
               name="approx_perfomance_duration"
               type="text"
               value={invite.approx_perfomance_duration || ''}
-              onChange={(e) => handleInviteChange(invite.speaker.id, e.target.value)}
-              onBlur={() => handleSaveInvite(invite.speaker.id)} 
+              onChange={(e) => invite.speaker?.id && handleInviteChange(invite.speaker.id, e.target.value)}
+              onBlur={() => invite.speaker?.id && handleSaveInvite(invite.speaker.id)}
             />
             <div className="m-text-container">
               <p className="primary-text">минут</p>

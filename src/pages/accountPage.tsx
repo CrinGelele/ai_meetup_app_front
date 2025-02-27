@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Form, Button, Alert, Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../store';
-import { changePassword, loginUserAsync } from '../slices/usersSlice';
+import { changePassword } from '../slices/usersSlice';
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from '../../Routes';
 

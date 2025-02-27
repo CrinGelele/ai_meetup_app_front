@@ -3,8 +3,8 @@ import { Meetup, Speaker } from '../modules/aimaApi'
 import { api } from '../api'
 
 interface Invite {
-    speaker: Speaker;
-    approx_perfomance_duration: number | null;
+    speaker?: Speaker | undefined;
+    approx_perfomance_duration?: number | null | undefined;
 }
 
 interface MeetupState {
@@ -26,7 +26,8 @@ const initialState: MeetupState = {
         resolve_date: null,
         topic: '',
         meetup_date: null,
-        viewers: ''
+        viewers: '',
+        qr: '',
     },
     error: null,
     isDraft: false,
@@ -36,7 +37,8 @@ const initialState: MeetupState = {
     'meetup/getMeetup',
     async (current_meetup_id: string) => {
       const response = await api.meetups.getSingleMeetup(current_meetup_id);
-      return response.data;
+      const { meetup, speakers } = response.data;
+      return { meetup, speakers };
     }
   );
 
@@ -68,12 +70,11 @@ const initialState: MeetupState = {
     'meetup/updateMeetup',
     async ({ current_meetup_id, meetupData }: { current_meetup_id: string; meetupData: Meetup }) => {
       const meetupDataToSend = {
+        id: meetupData.id,
         status: meetupData.status,
         user: meetupData.user,
         topic: meetupData.topic ?? '', 
-        meetup_date: meetupData.meetup_date instanceof Date 
-        ? meetupData.meetup_date.toISOString() // Преобразуем Date в строку
-        : meetupData.meetup_date, // Оставляем как есть, если это строка
+        meetup_date: meetupData.meetup_date,
       };
       const response = await api.meetups.changeSingleMeetup(current_meetup_id, meetupDataToSend);
       return response.data;
@@ -144,15 +145,14 @@ const initialState: MeetupState = {
                 resolve_date: null,
                 topic: '',
                 meetup_date: null,
-                viewers: ''
+                viewers: '',
+                qr: '',
             }
           })
           .addCase(deleteMeetup.rejected, (state) => {
             state.error = 'Ошибка при удалении вакансии';
           })
-          .addCase(updateMeetup.fulfilled, (state, action) => {
-            state.meetupData = action.payload.meetup; // Сохраняем данные из API
-            state.invites = action.payload.speakers; // Сохраняем данные из API
+          .addCase(updateMeetup.fulfilled, (state) => {
             state.isDraft = state.meetupData.status == "Черновик";
           })
           .addCase(updateMeetup.rejected, (state) => {
@@ -170,7 +170,8 @@ const initialState: MeetupState = {
                 resolve_date: null,
                 topic: '',
                 meetup_date: null,
-                viewers: ''
+                viewers: '',
+                qr: '',
             }
           })
           .addCase(commitMeetup.rejected, (state) => {

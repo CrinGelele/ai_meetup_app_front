@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { ROUTES } from '../../Routes';
-import { RootState, useAppDispatch } from '../store';
+import { useAppDispatch } from '../store';
 import { addSpeaker } from '../slices/speakersSlice';
 import { Speaker } from '../modules/aimaApi';
 import { BreadCrumbs } from '../components/BreadCrumbs';
@@ -82,7 +82,7 @@ const AddSpeakerPage: React.FC = () => {
             as="textarea"
             rows={3}
             name="description"
-            value={formData.description}
+            value={formData.description ?? ''}
             onChange={handleInputChange}
             required
           />

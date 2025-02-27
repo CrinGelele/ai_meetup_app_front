@@ -1,7 +1,6 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { ROUTES, ROUTE_LABELS } from '../../Routes';
-import logo from '../assets/logo.jpeg'
 import './Navigation.css'
 import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";

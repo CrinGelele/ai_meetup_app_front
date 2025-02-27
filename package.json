@@ -14,7 +14,9 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.1",
+    "@tauri-apps/plugin-http": "^2.3.0",
     "@vitejs/plugin-basic-ssl": "^1.2.0",
+    "axios": "^1.8.1",
     "bootstrap": "^5.3.3",
     "dotenv": "^16.4.7",
     "gh-pages": "^6.3.0",

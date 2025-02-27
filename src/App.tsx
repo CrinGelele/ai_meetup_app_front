@@ -18,14 +18,25 @@ import AccountPage from "./pages/accountPage";
 import AddSpeakerPage from "./pages/AddSpeakerPage";
 import { SpeakersListEditor } from "./pages/speakersListEditor";
 
-const ProtectedRoute = ({ children, isAuthenticated, isModerator }) => {
+interface ProtectedRouteProps {
+  children: React.ReactNode;
+  isAuthenticated: boolean;
+  isModerator: boolean;
+}
+
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, isAuthenticated, isModerator }) => {
   if (!isAuthenticated || !isModerator) {
     return <Navigate to="/403" replace />; // Перенаправление на страницу 403 (Запрещено)
   }
   return children;
 };
 
-const AuthRoute = ({ children, isAuthenticated }) => {
+interface AuthRouteProps {
+  children: React.ReactNode;
+  isAuthenticated: boolean;
+}
+
+const AuthRoute: React.FC<AuthRouteProps> = ({ children, isAuthenticated }) => {
   if (!isAuthenticated) {
     return <Navigate to="/403" replace />; // Перенаправление на страницу 403 (Запрещено)
   }

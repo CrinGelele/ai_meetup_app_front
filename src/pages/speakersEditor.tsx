@@ -101,7 +101,7 @@ const SpeakerEditor: React.FC = () => {
             as="textarea"
             rows={3}
             name="description"
-            value={formData.description}
+            value={formData.description ?? ''}
             onChange={handleInputChange}
           />
         </Form.Group>

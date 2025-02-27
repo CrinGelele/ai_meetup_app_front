@@ -54,12 +54,10 @@ export const AlbumPage: FC = () => {
       formData.append("image", imageFile); // Ключ "image" должен совпадать с ожидаемым на сервере
   
       try {
-        const response = await api.speakers.addSpeakerPhoto(id, formData);
-        if (response.data) {
+        await api.speakers.addSpeakerPhoto(id, formData);
           // Обновляем данные спикера после успешной загрузки фотографии
-          const updatedSpeaker = await getSpeakerById(id);
-          setPageData(updatedSpeaker);
-        }
+        const updatedSpeaker = await getSpeakerById(id);
+        setPageData(updatedSpeaker);
       } catch (error) {
         console.error("Ошибка при обновлении фотографии:", error);
       }
@@ -96,11 +94,15 @@ export const AlbumPage: FC = () => {
               <p className="secondary-text">{pageData.workplace}</p>
               <p className="info-text">{pageData.description}</p>
               <input type="text" hidden readOnly name="speaker_id" value={pageData.id} />
-              {isAuthenticated && isModerator && (
+              {isAuthenticated && (
                 <>
                   <button type="submit" className="submit_btn" onClick={handleAdd}>
                     Пригласить
                   </button>
+                </>
+              )}
+              {isModerator && (
+                <>
                   <button type="button" className="edit_btn" onClick={handleEdit}>
                     Редактировать
                   </button>

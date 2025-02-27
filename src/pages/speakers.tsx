@@ -62,7 +62,7 @@ const ITunesPage: FC = () => {
             {speakers.map((item, index) => (
               <Col key={index} md={4} className="mb-0 mt-3">
                 <SpeakerCard
-                  imageClickHandler={() => handleCardClick(item.id)}
+                  imageClickHandler={() => handleCardClick(item.id ?? NaN)}
                   {...item}
                 />
               </Col>

@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../store';
 import { registerUser } from '../slices/usersSlice';
 import { useNavigate, Link } from "react-router-dom";
-import Navigation from "../components/Navigation";
 import { ROUTES } from '../../Routes';
 
 const RegisterPage: React.FC = () => {

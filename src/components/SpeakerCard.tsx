@@ -4,12 +4,12 @@ import "./SpeakerCard.css";
 import defaultImage from "../assets/defaultImage.png"
 
 interface SpeakerCardProps {
-    id: number;
+    id?: number | undefined;
     first_name: string;
     last_name: string;
     workplace: string;
-    description: string;
-    img_url: string;
+    description?: string | null | undefined;
+    img_url?: string | null | undefined;
     imageClickHandler: () => void;
 }
 

@@ -1,10 +1,7 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import { BreadCrumbs } from "../components/BreadCrumbs";
 import { ROUTES, ROUTE_LABELS } from "../../Routes";
 import { useNavigate } from "react-router-dom";
-import { Speaker, getSpeakers } from "../modules/aimaApi";
-import { Spinner } from "react-bootstrap";
-import { SPEAKERS_MOCK } from "../modules/mock";
 import defaultImage from "../assets/defaultImage.png";
 import { useSelector } from 'react-redux';
 import { deleteSpeaker } from '../slices/speakersSlice';
@@ -21,8 +18,6 @@ export const SpeakersListEditor: FC = () => {
   const isModerator = useSelector((state: RootState) => state.user.isModerator);
   const speakersData = useSelector((state: RootState) => state.speakers.speakersData);
   const speakers = speakersData?.speakers || [];
-  const current_meetup_id = speakersData?.current_meetup_id || null;
-  const speakers_quantity = speakersData?.speakers_quantity || null;
 
   // Загрузка списка спикеров
 useEffect(() => {

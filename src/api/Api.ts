@@ -82,7 +82,7 @@ export interface User {
 
 export interface Meetup {
   /** ID */
-  id?: number;
+  id: number | undefined;
   /**
    * Status
    * @minLength 1
@@ -162,6 +162,11 @@ export enum ContentType {
   FormData = "multipart/form-data",
   UrlEncoded = "application/x-www-form-urlencoded",
   Text = "text/plain",
+}
+
+interface MeetupResponse {
+  meetup: Meetup;
+  speakers: Invite[];
 }
 
 export class HttpClient<SecurityDataType = unknown> {
@@ -355,7 +360,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getMeetupsList: (params: { start?: string, end?: string, status?: string } & RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<Meetup[], any>({
         path: `/meetups/`,
         method: "GET",
         secure: true,
@@ -392,7 +397,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getSingleMeetup: (meetupId: string, params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<MeetupResponse, any>({
         path: `/meetups/${meetupId}/`,
         method: "GET",
         secure: true,
@@ -478,7 +483,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     readSpeakersList: (params: { speaker_name_to_find?: string } & RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<{current_meetup_id: number | null | undefined, speakers_quantity: number | null | undefined, speakers: Speaker[]}, any>({
         path: `/speakers/`,
         method: "GET",
         secure: true,
