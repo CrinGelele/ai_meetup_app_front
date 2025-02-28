@@ -327,7 +327,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/login/`,
         method: "POST",
         body: data,
-        secure: true,
+        secure: false,
         format: "json",
         withCredentials: true,
         ...params,
@@ -346,7 +346,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<void, any>({
         path: `/logout/`,
         method: "POST",
-        secure: true,
+        secure: false,
+        withCredentials: true,
         ...params,
       }),
   };

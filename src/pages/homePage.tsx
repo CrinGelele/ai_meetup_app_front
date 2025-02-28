@@ -2,7 +2,10 @@ import { FC } from "react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../Routes";
 import { Button, Container } from "react-bootstrap";
-import './homePage.css'
+import './homePage.css';
+import log from 'loglevel';
+
+log.setLevel('info');
 
 export const HomePage: FC = () => {
   return (

@@ -34,7 +34,7 @@ export interface Speaker {
     // Запускаем запрос и таймаут одновременно
     try {
       const response = await Promise.race([
-        fetch(`/api/api/speakers/${id}/`).then((response) => response.json()),
+        fetch(`http://192.168.1.80:8000/api/speakers/${id}/`).then((response) => response.json()),
         timeoutPromise,
       ]);
       return response;

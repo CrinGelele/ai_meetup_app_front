@@ -33,7 +33,7 @@ export const SpeakerCard: FC<SpeakerCardProps> = ({
       <Card.Img
         className="cardImage"
         variant="bottom"
-        src={img_url ? img_url.replace('http://localhost:9000', '/minio') : defaultImage}
+        src={img_url ? img_url.replace('http://localhost:9000', import.meta.env.VITE_MINIO_URL) : defaultImage}
         onClick={imageClickHandler}
       />
     </Card>
